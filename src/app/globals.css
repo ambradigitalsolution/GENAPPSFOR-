@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+    --background: #000000;
+    --foreground: #ffffff;
+
+    --card: #111111;
+    --card-foreground: #ffffff;
+
+    --popover: #111111;
+    --popover-foreground: #ffffff;
+
+    --primary: #ffffff;
+    --primary-foreground: #000000;
+
+    --secondary: #222222;
+    --secondary-foreground: #ffffff;
+
+    --muted: #222222;
+    --muted-foreground: #a1a1aa;
+
+    --accent: #222222;
+    --accent-foreground: #ffffff;
+
+    --destructive: #ef4444;
+    --destructive-foreground: #ffffff;
+
+    --border: #333333;
+    --input: #333333;
+    --ring: rgba(255, 255, 255, 0.2);
+
+    --radius: 1rem;
+  }
+
+  * {
+    @apply border-[var(--border)];
+  }
+
+  body {
+    @apply bg-black text-white font-sans antialiased;
+    min-height: 100vh;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .glass {
+    background: #111111;
+    border: 1px solid #333333;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  }
+
+  .glass-input {
+    background: #1a1a1a;
+    border: 1px solid #444444;
+    color: white !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .glass-input:focus {
+    border-color: rgba(59, 130, 246, 0.5);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+  }
+
+}
