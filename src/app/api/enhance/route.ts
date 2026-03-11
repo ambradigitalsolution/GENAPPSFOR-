@@ -14,7 +14,7 @@ Your task is to rewrite and expand it into a single, professional, comprehensive
 Do NOT include greetings, lists, or conversational filler. Just the polished description.
 User's idea: ${prompt}`;
 
-        const aiModel = google("gemini-1.5-flash");
+        const aiModel = google("gemini-2.5-flash");
 
         const result = await streamText({
             model: aiModel,
