@@ -799,8 +799,9 @@ INSTRUCTIONS FOR GENERATING THE MASTER PROMPT:
             ) : (
               <>
                 <p className="opacity-50 italic mb-4">
-                  // Waiting for input... Press 'Generate Master Prompt' to start.
+                  {"// Waiting for input... Press 'Generate Master Prompt' to start."}
                 </p>
+
                 <div className="space-y-4 opacity-50 select-none">
                   <p>
                     <span className="text-purple-400"># ROLE:</span> Expert Fullstack Developer & Architect
