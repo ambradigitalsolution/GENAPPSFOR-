@@ -374,6 +374,28 @@ const CONSTRAINT_OPTIONS = [
   }
 ];
 
+const FRONTEND_SPECIAL_OPTIONS = [
+  {
+    id: "visual_polish",
+    label: "Visual Polish (Glassmorphism)",
+    description: "AI akan menambahkan efek blur, shadow, dan gradasi modern agar UI terlihat mewah seperti produk Apple atau SaaS premium.",
+    prompt: "Apply a 'Glassmorphism' aesthetic: use backdrop-filters (blur), subtle border-strokes, and high-fidelity box shadows. Use a sophisticated color palette with smooth gradients."
+  },
+  {
+    id: "interactive_animations",
+    label: "Interactive Animations",
+    description: "AI akan menyertakan kode Framer Motion untuk animasi hover, scroll, dan transisi halaman agar aplikasi terasa hidup.",
+    prompt: "Use Framer Motion for all interactive elements. Implement hover scales, page entry transitions, and scroll-triggered animations to ensure the UX feels 'alive' and responsive."
+  },
+  {
+    id: "responsive_scaling",
+    label: "Responsive Perfect Scaling",
+    description: "AI akan memastikan tipografi dan layout membesar/mengecil dengan proporsional di HP, Tablet, dan Desktop tanpa pecah.",
+    prompt: "Ensure meticulous responsive design. Use fluid typography (clamp) and layout-containers that scale perfectly across mobile, tablet, and wide-desktop views."
+  }
+];
+
+
 export default function Home() {
   const [copied, setCopied] = useState(false);
 
@@ -384,7 +406,9 @@ export default function Home() {
   const [designVibe, setDesignVibe] = useState("");
   const [features, setFeatures] = useState(["User Authentication", "Database Integration"]);
   const [selectedConstraints, setSelectedConstraints] = useState<string[]>([]);
+  const [selectedFrontendOptions, setSelectedFrontendOptions] = useState<string[]>([]);
   const [activeCategory, setActiveCategory] = useState("All");
+
   const [viewMode, setViewMode] = useState<"visual" | "code">("visual");
   const [deviceFrame, setDeviceFrame] = useState<"monitor" | "tablet" | "smartphone">("monitor");
   const [isSimulating, setIsSimulating] = useState(false);
@@ -533,6 +557,11 @@ export default function Home() {
       .map(opt => `- ${opt.prompt}`)
       .join('\n');
 
+    const compiledFrontend = FRONTEND_SPECIAL_OPTIONS
+      .filter(opt => selectedFrontendOptions.includes(opt.id))
+      .map(opt => `- ${opt.prompt}`)
+      .join('\n');
+
     const compiledPrompt = `
 # SYSTEM ROLE
 You are a world-class Prompt Engineer specializing in AI-assisted coding.
@@ -544,8 +573,12 @@ Your task is to generate a comprehensive "Master System Prompt" for ${appName}.
 - Target Tech Stack: ${techStack.join(', ')}
 - Design Vibe: ${designVibe || "Modern & Professional"}
 
+# VISUAL & FRONTEND PRIORITIES
+${compiledFrontend.trim() !== "" ? compiledFrontend : "- Prioritize premium UI/UX, clean spacing, and modern typography."}
+
 # CORE FEATURES TO IMPLEMENT
 ${features.filter(f => f.trim() !== "").map((f, i) => `${i + 1}. ${f}`).join('\n')}
+
 
 ${compiledConstraints.trim() !== "" ? `# ARCHITECTURAL RULES & CONSTRAINTS\n${compiledConstraints}\n` : ""}
 
@@ -806,7 +839,44 @@ ${compiledConstraints.trim() !== "" ? `# ARCHITECTURAL RULES & CONSTRAINTS\n${co
               </AnimatePresence>
             </div>
 
+            {/* Frontend Visual Options */}
+            <div className="space-y-4">
+              <label className="text-sm font-medium text-zinc-300 flex items-center gap-2">
+                <Palette className="w-4 h-4 text-blue-400" />
+                Frontend & UI Polish (Premium)
+              </label>
+
+              <div className="grid grid-cols-1 gap-2">
+                {FRONTEND_SPECIAL_OPTIONS.map((opt) => (
+                  <button
+                    key={opt.id}
+                    onClick={() => {
+                      if (selectedFrontendOptions.includes(opt.id)) {
+                        setSelectedFrontendOptions(selectedFrontendOptions.filter(id => id !== opt.id));
+                      } else {
+                        setSelectedFrontendOptions([...selectedFrontendOptions, opt.id]);
+                      }
+                    }}
+                    className={`p-3 rounded-xl border text-left transition-all flex flex-col gap-1 ${
+                      selectedFrontendOptions.includes(opt.id)
+                        ? "bg-blue-600/10 border-blue-500/50 shadow-[0_0_15px_rgba(59,130,246,0.1)]"
+                        : "border-zinc-800 bg-zinc-900/30 hover:bg-zinc-800 hover:border-zinc-700"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className={`text-xs font-bold ${selectedFrontendOptions.includes(opt.id) ? "text-blue-400" : "text-zinc-200"}`}>
+                        {opt.label.toUpperCase()}
+                      </span>
+                      {selectedFrontendOptions.includes(opt.id) && <Check className="w-4 h-4 text-blue-400" />}
+                    </div>
+                    <p className="text-[10px] text-zinc-500 leading-relaxed">{opt.description}</p>
+                  </button>
+                ))}
+              </div>
+            </div>
+
             {/* Features */}
+
             <div className="space-y-4">
               <label className="text-sm font-medium text-zinc-300 flex items-center gap-2">
                 <Rocket className="w-4 h-4 text-zinc-400" />
