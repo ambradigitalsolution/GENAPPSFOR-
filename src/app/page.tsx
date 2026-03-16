@@ -7,6 +7,8 @@ import { useCompletion } from "@ai-sdk/react";
 import { Toaster, toast } from "react-hot-toast";
 import ReactMarkdown from "react-markdown";
 import TextareaAutosize from "react-textarea-autosize";
+import { Eye, Code as CodeIcon, Monitor, Smartphone, Tablet } from "lucide-react";
+
 
 const QUICK_PRESETS = [
   {
@@ -163,6 +165,145 @@ const QUICK_PRESETS = [
   }
 ];
 
+const MOCK_UI_SAMPLES = {
+  "Business": (
+    <div className="w-full h-full bg-[#050505] p-6 text-white font-sans overflow-y-auto">
+      <div className="flex items-center justify-between mb-8">
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+            <Rocket className="w-5 h-5" />
+          </div>
+          <span className="text-xl font-bold tracking-tight">NEXUS<span className="text-blue-500">PRO</span></span>
+        </div>
+        <div className="flex gap-2">
+          <div className="w-8 h-8 rounded-full bg-zinc-800 border border-zinc-700" />
+          <div className="w-24 h-8 rounded-lg bg-zinc-800/50 border border-zinc-700" />
+        </div>
+      </div>
+      
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        {[1, 2, 3].map(i => (
+          <div key={i} className="p-6 rounded-2xl bg-[#111] border border-zinc-800 shadow-xl relative overflow-hidden group">
+            <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+              <Zap className="w-12 h-12 text-blue-500" />
+            </div>
+            <p className="text-zinc-500 text-xs font-bold uppercase tracking-widest mb-1">Total Revenue</p>
+            <h3 className="text-2xl font-bold font-mono">$12,450.00</h3>
+            <p className="text-green-500 text-[10px] mt-2 flex items-center gap-1">↑ 12% from last month</p>
+          </div>
+        ))}
+      </div>
+
+      <div className="rounded-2xl border border-zinc-800 bg-[#111] p-6 shadow-2xl">
+        <div className="flex items-center justify-between mb-6">
+          <h4 className="text-sm font-bold uppercase tracking-widest text-zinc-400">Order Analytics</h4>
+          <div className="flex gap-2">
+            <div className="px-3 py-1 bg-zinc-800 rounded-md text-[10px] text-zinc-400">Monthly</div>
+            <div className="px-3 py-1 bg-blue-600/20 text-blue-400 rounded-md text-[10px] font-bold border border-blue-500/20">Real-time</div>
+          </div>
+        </div>
+        <div className="h-40 flex items-end gap-2 px-2 pb-2">
+          {[40, 70, 45, 90, 65, 80, 50, 85, 45, 100, 75, 60, 40, 80].map((h, idx) => (
+            <motion.div 
+              key={idx}
+              initial={{ height: 0 }}
+              animate={{ height: `${h}%` }}
+              transition={{ delay: idx * 0.05, duration: 0.8, ease: "easeOut" }}
+              className={`flex-1 rounded-t-sm ${idx === 9 ? 'bg-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.5)]' : 'bg-zinc-800 hover:bg-zinc-700'} transition-colors cursor-pointer`}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  ),
+  "Marketing": (
+    <div className="w-full h-full bg-[#0a0a0a] flex flex-col items-center justify-center p-8 text-center text-white overflow-y-auto">
+       <div className="absolute inset-0 overflow-hidden opacity-30">
+          <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-purple-600/20 blur-[120px] rounded-full" />
+          <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-600/20 blur-[120px] rounded-full" />
+       </div>
+       
+       <motion.div 
+         initial={{ opacity: 0, y: 30 }}
+         animate={{ opacity: 1, y: 0 }}
+         className="relative z-10 space-y-6"
+       >
+         <div className="inline-block px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-[10px] font-bold uppercase tracking-[0.3em] text-purple-400 mb-2">
+           Next Generation Design
+         </div>
+         <h1 className="text-5xl font-black leading-tight tracking-tighter">
+           Design the future <br /> 
+           <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500">
+             without limits.
+           </span>
+         </h1>
+         <p className="text-zinc-400 max-w-sm mx-auto text-sm leading-relaxed">
+           The modular component system that helps you ship product interfaces faster than ever before.
+         </p>
+         
+         <div className="flex items-center justify-center gap-4 pt-4">
+           <button className="px-8 py-3 bg-white text-black rounded-full font-bold text-sm hover:scale-105 transition-transform">
+             Get Started
+           </button>
+           <button className="px-8 py-3 bg-zinc-900 border border-zinc-800 text-white rounded-full font-bold text-sm hover:bg-zinc-800 transition-colors">
+             Watch Demo
+           </button>
+         </div>
+
+         <div className="pt-12 grid grid-cols-4 gap-4 opacity-50 grayscale hover:grayscale-0 transition-all duration-700">
+           {['LOGO', 'SaaS', 'Web3', 'AI Tool'].map(l => (
+             <div key={l} className="text-xs font-bold tracking-widest">{l}</div>
+           ))}
+         </div>
+       </motion.div>
+    </div>
+  ),
+  "Modern": (
+    <div className="w-full h-full bg-[#0d0d0d] p-0 font-sans text-zinc-300">
+      <div className="flex h-full">
+        {/* Sidebar */}
+        <div className="w-16 border-r border-zinc-800 flex flex-col items-center py-6 gap-8 bg-[#0a0a0a]">
+          <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-600" />
+          <div className="flex flex-col gap-6">
+            {[Layers, Monitor, Palette, Terminal, Zap].map((Icon, i) => (
+              <Icon key={i} className={`w-5 h-5 ${i === 0 ? 'text-white' : 'text-zinc-600'} hover:text-white cursor-pointer transition-colors`} />
+            ))}
+          </div>
+          <div className="mt-auto">
+            <ShieldAlert className="w-5 h-5 text-zinc-600" />
+          </div>
+        </div>
+        
+        {/* Main */}
+        <div className="flex-1 flex flex-col">
+          <header className="h-16 border-b border-zinc-800 flex items-center justify-between px-8 bg-[#0a0a0a]/50 backdrop-blur-xl">
+            <h2 className="text-sm font-bold tracking-wider uppercase text-white">Project Workspaces</h2>
+            <button className="p-2 bg-blue-600/10 border border-blue-500/20 rounded-lg text-blue-500 hover:bg-blue-600/20 transition-all">
+              <Plus className="w-4 h-4" />
+            </button>
+          </header>
+          
+          <div className="p-8 grid grid-cols-2 gap-6 overflow-y-auto max-h-[460px]">
+            {[1, 2, 3, 4, 5, 6].map(i => (
+              <div key={i} className="p-5 rounded-2xl bg-zinc-900/50 border border-zinc-800 hover:border-zinc-700 transition-all group cursor-pointer">
+                <div className="flex justify-between items-start mb-4">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-zinc-800 to-zinc-900 border border-zinc-700 flex items-center justify-center group-hover:scale-110 transition-transform">
+                    {i % 2 === 0 ? <Wand2 className="w-5 h-5 text-indigo-400" /> : <Layers className="w-5 h-5 text-blue-400" />}
+                  </div>
+                  <div className="p-1 rounded bg-green-500/10 text-green-500 text-[8px] font-bold">ACTIVE</div>
+                </div>
+                <h4 className="text-white text-sm font-bold mb-1">Modern Component {i}</h4>
+                <p className="text-[11px] text-zinc-500 line-clamp-2 leading-relaxed">System architecture and dynamic asset loading for production environments.</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+};
+
+
 const PRESET_CATEGORIES = ["All", ...Array.from(new Set(QUICK_PRESETS.map((p) => p.category)))];
 
 const AVAILABLE_TECH = [
@@ -244,6 +385,14 @@ export default function Home() {
   const [features, setFeatures] = useState(["User Authentication", "Database Integration"]);
   const [selectedConstraints, setSelectedConstraints] = useState<string[]>([]);
   const [activeCategory, setActiveCategory] = useState("All");
+  const [viewMode, setViewMode] = useState<"visual" | "code">("visual");
+  const [deviceFrame, setDeviceFrame] = useState<"monitor" | "tablet" | "smartphone">("monitor");
+  const [isSimulating, setIsSimulating] = useState(false);
+  const [currentMockId, setCurrentMockId] = useState<string>("Modern");
+  const [useAi, setUseAi] = useState(false);
+  const [localCompletion, setLocalCompletion] = useState("");
+
+
 
   // Load from LocalStorage
   useEffect(() => {
@@ -316,16 +465,19 @@ export default function Home() {
   };
 
   const handleCopy = () => {
-    if (!completion) return;
-    navigator.clipboard.writeText(completion);
+    const textToCopy = completion || localCompletion;
+    if (!textToCopy) return;
+    navigator.clipboard.writeText(textToCopy);
     setCopied(true);
     toast.success("Copied to clipboard!", { icon: '📋' });
     setTimeout(() => setCopied(false), 2000);
   };
 
+
   const handleDownload = () => {
-    if (!completion) return;
-    const blob = new Blob([completion], { type: 'text/markdown' });
+    const textToDownload = completion || localCompletion;
+    if (!textToDownload) return;
+    const blob = new Blob([textToDownload], { type: 'text/markdown' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
@@ -335,6 +487,7 @@ export default function Home() {
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
   };
+
 
   const toggleTech = (tech: string) => {
     if (techStack.includes(tech)) {
@@ -381,31 +534,55 @@ export default function Home() {
       .join('\n');
 
     const compiledPrompt = `
-You are a world-class Prompt Engineer specializing in AI-assisted coding (for Cursor, Copilot, ChatGPT).
-Your task is to generate a comprehensive, highly-structured "Master System Prompt". The user will copy-paste your output directly into their AI coding tool to build an application.
+# SYSTEM ROLE
+You are a world-class Prompt Engineer specializing in AI-assisted coding.
+Your task is to generate a comprehensive "Master System Prompt" for ${appName}.
 
-# APP CONTEXT
-- Name: ${appName}
-- Purpose: ${appPurpose}
-- UI/UX Vibe: ${designVibe || "Clean & Minimalist"}
+# PROJECT CONTEXT
+- App Name: ${appName}
+- Core Purpose: ${appPurpose}
+- Target Tech Stack: ${techStack.join(', ')}
+- Design Vibe: ${designVibe || "Modern & Professional"}
 
-# TECH STACK REQUIRED
-${techStack.map(t => `- ${t}`).join('\n')}
-
-# CORE FEATURES
+# CORE FEATURES TO IMPLEMENT
 ${features.filter(f => f.trim() !== "").map((f, i) => `${i + 1}. ${f}`).join('\n')}
 
-${compiledConstraints.trim() !== "" ? `# CONSTRAINTS & RULES\n${compiledConstraints}\n` : ""}
-INSTRUCTIONS FOR GENERATING THE MASTER PROMPT:
-1. Format the output using structured sections ([CONTEXT], [TECH STACK], [RULES], [FILE STRUCTURE], [CORE TASKS]).
-2. Include strict rules in the output prompt to prevent the AI from using deprecated packages or writing buggy placeholder code.
-3. Instruct the AI coder to think step-by-step: design architecture first, code second.
-4. If there are database requirements implied by the features, explicitly design the data models.
-5. ONLY output the master prompt itself using markdown. Do not add conversational filler before or after your block.
+${compiledConstraints.trim() !== "" ? `# ARCHITECTURAL RULES & CONSTRAINTS\n${compiledConstraints}\n` : ""}
+
+# FINAL INSTRUCTIONS FOR THE CODER AI
+1. Think step-by-step about the architecture before writing code.
+2. Initialize the project structure using the requested tech stack.
+3. Implement core features with clean, documented code.
+4. Ensure the UI matches the "${designVibe}" vibe.
 `;
 
-    complete(compiledPrompt);
+    // Reset view to visual first
+    setViewMode("visual");
+
+    if (useAi) {
+      complete(compiledPrompt);
+    } else {
+      // Simulation / Local Mode
+      setIsSimulating(true);
+      setLocalCompletion(compiledPrompt);
+      
+      // Select mock
+      const categories = ["Business", "Marketing", "Modern"];
+      const randomCat = categories[Math.floor(Math.random() * categories.length)];
+      const selectedCat = (activeCategory !== "All" && MOCK_UI_SAMPLES[activeCategory as keyof typeof MOCK_UI_SAMPLES]) 
+        ? activeCategory 
+        : randomCat;
+      
+      setCurrentMockId(selectedCat);
+
+      setTimeout(() => {
+        setIsSimulating(false);
+        toast.success("Master Prompt Compiled Locally!", { icon: "📝" });
+      }, 1500);
+    }
   };
+
+
 
   return (
     <div className="min-h-screen bg-black flex flex-col items-center p-4 sm:p-8 lg:p-12 relative">
@@ -715,18 +892,35 @@ INSTRUCTIONS FOR GENERATING THE MASTER PROMPT:
             </div>
           </div>
 
-          <div className="pt-4 mt-auto">
+          <div className="pt-4 mt-auto space-y-3">
+            <div className="flex items-center justify-between px-2">
+              <label className="text-[11px] font-bold text-zinc-500 uppercase tracking-widest flex items-center gap-2">
+                <Server className="w-3 h-3" />
+                Processing Mode
+              </label>
+              <button 
+                onClick={() => setUseAi(!useAi)}
+                className={`flex items-center gap-2 px-3 py-1 rounded-full border transition-all text-[10px] font-black ${
+                  useAi 
+                  ? "bg-purple-600/20 border-purple-500 text-purple-400" 
+                  : "bg-zinc-800/50 border-zinc-700 text-zinc-500"
+                }`}
+              >
+                <div className={`w-1.5 h-1.5 rounded-full ${useAi ? 'bg-purple-400 animate-pulse' : 'bg-zinc-600'}`} />
+                {useAi ? "CLOUD AI (QUOTA)" : "LOCAL ENGINE (FREE)"}
+              </button>
+            </div>
+
             <button
               onClick={handleGenerate}
-              disabled={isLoading}
+              disabled={isLoading || isSimulating}
               className="w-full relative group disabled:opacity-70 disabled:cursor-not-allowed"
             >
-
               <div className="relative w-full bg-blue-600 rounded-xl px-4 py-4 flex items-center justify-center gap-2 text-white font-bold transition-all shadow-lg hover:bg-blue-500 active:scale-[0.98] border border-blue-400/30">
-                {isLoading ? (
+                {(isLoading || isSimulating) ? (
                   <>
                     <Loader2 className="w-5 h-5 text-white animate-spin" />
-                    <span className="tracking-wide">GENERATING...</span>
+                    <span className="tracking-wide uppercase">Processing...</span>
                   </>
                 ) : (
                   <>
@@ -737,107 +931,187 @@ INSTRUCTIONS FOR GENERATING THE MASTER PROMPT:
               </div>
             </button>
           </div>
+
         </div>
 
-        {/* Right Side: Generated Output Terminal */}
-        <div className="flex-1 bg-black rounded-3xl overflow-hidden flex flex-col border border-zinc-800 relative shadow-2xl">
-          {/* Terminal Header */}
-          <div className="bg-[#111111]/80 backdrop-blur-md border-b border-white/10 px-4 py-3 flex items-center justify-between z-20">
-            <div className="flex items-center gap-3">
-              <div className="flex gap-1.5">
-                <div className="w-3 h-3 rounded-full bg-red-500/80" />
-                <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
-                <div className="w-3 h-3 rounded-full bg-green-500/80" />
+        {/* Right Side: Generated Output / UI Preview */}
+        <div className="flex-1 bg-[#0a0a0a] rounded-3xl overflow-hidden flex flex-col border border-zinc-800 relative shadow-2xl min-h-[600px]">
+          {/* Output Header / Controls */}
+          <div className="bg-[#111]/80 backdrop-blur-md border-b border-white/10 px-6 py-4 flex items-center justify-between z-20">
+            <div className="flex items-center gap-4">
+              <div className="flex bg-zinc-900 p-1 rounded-xl border border-white/5">
+                <button
+                  onClick={() => setViewMode("visual")}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all ${
+                    viewMode === "visual" ? "bg-blue-600 text-white shadow-lg" : "text-zinc-500 hover:text-zinc-400"
+                  }`}
+                >
+                  <Eye className="w-3.5 h-3.5" />
+                  VISUAL DESIGN
+                </button>
+                <button
+                  onClick={() => setViewMode("code")}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all ${
+                    viewMode === "code" ? "bg-blue-600 text-white shadow-lg" : "text-zinc-500 hover:text-zinc-400"
+                  }`}
+                >
+                  <CodeIcon className="w-3.5 h-3.5" />
+                  MASTER PROMPT
+                </button>
               </div>
-              <div className="flex items-center gap-2 text-zinc-300 text-sm font-medium ml-2">
-                <Terminal className="w-4 h-4" />
-                <span>output.prompt</span>
-              </div>
+              
+              {viewMode === "visual" && (
+                <div className="hidden sm:flex items-center gap-1 ml-2 bg-zinc-900/50 p-1 rounded-lg border border-white/5">
+                  <button onClick={() => setDeviceFrame("monitor")} className={`p-1.5 rounded ${deviceFrame === 'monitor' ? 'bg-zinc-800 text-blue-400' : 'text-zinc-600'}`}>
+                    <Monitor className="w-3 h-3" />
+                  </button>
+                  <button onClick={() => setDeviceFrame("tablet")} className={`p-1.5 rounded ${deviceFrame === 'tablet' ? 'bg-zinc-800 text-blue-400' : 'text-zinc-600'}`}>
+                    <Tablet className="w-3 h-3" />
+                  </button>
+                  <button onClick={() => setDeviceFrame("smartphone")} className={`p-1.5 rounded ${deviceFrame === 'smartphone' ? 'bg-zinc-800 text-blue-400' : 'text-zinc-600'}`}>
+                    <Smartphone className="w-3 h-3" />
+                  </button>
+                </div>
+              )}
             </div>
 
             <div className="flex items-center gap-2">
               <button
                 onClick={handleDownload}
-                disabled={!completion || isLoading}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-xs font-medium text-zinc-300"
+                disabled={(!completion && !localCompletion) || isLoading || isSimulating}
+                className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-xs font-medium text-zinc-300"
               >
                 <Download className="w-3.5 h-3.5" />
-                Export .md
+                Export
               </button>
               <button
                 onClick={handleCopy}
-                disabled={!completion || isLoading}
+                disabled={(!completion && !localCompletion) || isLoading || isSimulating}
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-xs font-medium text-zinc-300"
               >
                 {copied ? <Check className="w-3.5 h-3.5 text-green-400" /> : <Copy className="w-3.5 h-3.5" />}
-                {copied ? "Copied!" : "Copy"}
+                <span className="hidden sm:inline">{copied ? "Copied!" : "Copy"}</span>
               </button>
+
             </div>
           </div>
 
-          {/* Terminal Content */}
-          <div className="flex-1 p-6 relative overflow-y-auto font-mono text-sm leading-relaxed text-zinc-300 bg-[#0a0a0a]/50 whitespace-pre-wrap">
-            <div className="absolute inset-x-0 top-0 h-4 bg-gradient-to-b from-[#0a0a0a]/50 to-transparent pointer-events-none z-10" />
+          {/* Canvas Content Area */}
+          <div className="flex-1 relative flex flex-col bg-zinc-950 overflow-hidden">
+            <AnimatePresence mode="wait">
+              {isSimulating ? (
+                <motion.div
+                  key="loading"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="absolute inset-0 z-30 flex flex-col items-center justify-center bg-black/80 backdrop-blur-sm"
+                >
+                  <div className="relative w-24 h-24 mb-6">
+                    <motion.div
+                      animate={{ rotate: 360 }}
+                      transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
+                      className="absolute inset-0 border-t-2 border-r-2 border-blue-500 rounded-full"
+                    />
+                    <motion.div
+                      animate={{ rotate: -360 }}
+                      transition={{ repeat: Infinity, duration: 3, ease: "linear" }}
+                      className="absolute inset-2 border-b-2 border-l-2 border-purple-500 rounded-full opacity-50"
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <Sparkles className="w-8 h-8 text-white animate-pulse" />
+                    </div>
+                  </div>
+                  <h3 className="text-xl font-bold text-white tracking-widest mb-2">ARCHITECTING UI</h3>
+                  <div className="flex gap-1">
+                    {[0, 1, 2].map(i => (
+                      <motion.div
+                        key={i}
+                        animate={{ opacity: [0.2, 1, 0.2] }}
+                        transition={{ repeat: Infinity, duration: 1, delay: i * 0.2 }}
+                        className="w-1.5 h-1.5 bg-blue-500 rounded-full"
+                      />
+                    ))}
+                  </div>
+                </motion.div>
+              ) : null}
 
-            {isLoading && !completion ? (
-              <div className="flex flex-col items-center justify-center h-full opacity-50 space-y-4">
-                <Loader2 className="w-8 h-8 animate-spin text-blue-400" />
-                <p className="animate-pulse">Crafting your master prompt...</p>
-              </div>
-            ) : completion ? (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5 }}
-                className="w-full"
-              >
-                <div className="prose prose-invert max-w-none prose-sm sm:prose-base focus:outline-none">
-                  <ReactMarkdown>{completion}</ReactMarkdown>
-                </div>
-                {isLoading && <span className="inline-block w-2 h-4 bg-zinc-300 ml-1 animate-pulse mt-2" />}
-              </motion.div>
-            ) : (
-              <>
-                <p className="opacity-50 italic mb-4">
-                  {"// Waiting for input... Press 'Generate Master Prompt' to start."}
-                </p>
+              {viewMode === "visual" ? (
+                <motion.div
+                  key="visual"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 1.05 }}
+                  className="flex-1 p-4 flex items-center justify-center overflow-hidden"
+                >
+                  <div 
+                    className={`transition-all duration-700 bg-black rounded-[2rem] border-[8px] border-zinc-900 shadow-2xl relative overflow-hidden flex flex-col
+                      ${deviceFrame === 'monitor' ? 'w-full h-full max-w-[95%] max-h-[90%]' : ''}
+                      ${deviceFrame === 'tablet' ? 'w-[75%] h-[85%] max-w-[600px]' : ''}
+                      ${deviceFrame === 'smartphone' ? 'w-[45%] h-[80%] max-w-[320px]' : ''}
+                    `}
+                  >
+                    {/* Status Bar for mobile */}
+                    {deviceFrame !== 'monitor' && (
+                      <div className="h-6 bg-zinc-900 w-full flex justify-between px-6 pt-1">
+                        <div className="text-[8px] font-bold text-zinc-500">9:41</div>
+                        <div className="flex gap-1 items-center">
+                           <div className="w-2 h-2 rounded-full bg-zinc-700" />
+                           <div className="w-3 h-2 bg-zinc-700 rounded-sm" />
+                        </div>
+                      </div>
+                    )}
+                    
+                    <div className="flex-1 overflow-y-auto custom-scrollbar">
+                      {MOCK_UI_SAMPLES[currentMockId as keyof typeof MOCK_UI_SAMPLES] || MOCK_UI_SAMPLES["Modern"]}
+                    </div>
+                    
+                    {/* Home Indicator for mobile */}
+                    {deviceFrame !== 'monitor' && (
+                      <div className="h-4 bg-zinc-900 w-full flex justify-center items-center">
+                        <div className="w-16 h-1 bg-zinc-700 rounded-full" />
+                      </div>
+                    )}
+                  </div>
 
-                <div className="space-y-4 opacity-50 select-none">
-                  <p>
-                    <span className="text-purple-400"># ROLE:</span> Expert Fullstack Developer & Architect
-                  </p>
-                  <p>
-                    <span className="text-blue-400"># CONTEXT:</span> I am conceptualizing a new application called `[APP_NAME]`.
-                    Its primary purpose is to `[APP_PURPOSE]`.
-                  </p>
-                  <p>
-                    <span className="text-green-400"># TECH STACK:</span> The required technologies are:
-                    <br />- `[TECH_1]`
-                    <br />- `[TECH_2]`
-                  </p>
-                  <p>
-                    <span className="text-yellow-400"># FEATURES MINIMUM VIABLE PRODUCT:</span>
-                    <br />1. `[FEATURE_1]`
-                    <br />2. `[FEATURE_2]`
-                  </p>
-                  <p className="text-zinc-500 mt-8">
-                    Generate the skeleton code... █
-                  </p>
-                </div>
-              </>
-            )}
+                  {/* Aesthetic Background Accents */}
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full -z-10 pointer-events-none opacity-20">
+                    <div className="absolute top-[20%] left-[20%] w-[30%] h-[30%] bg-blue-600/30 blur-[100px] rounded-full animate-pulse" />
+                    <div className="absolute bottom-[20%] right-[20%] w-[30%] h-[30%] bg-purple-600/30 blur-[100px] rounded-full animate-pulse" style={{ animationDelay: '1s' }} />
+                  </div>
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="code"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  className="flex-1 p-6 font-mono text-sm leading-relaxed text-zinc-400 whitespace-pre-wrap overflow-y-auto bg-[#050505]"
+                >
+                  {(completion || localCompletion) ? (
+                    <div className="prose prose-invert max-w-none prose-sm sm:prose-base focus:outline-none">
+                      <ReactMarkdown>{completion || localCompletion}</ReactMarkdown>
+                    </div>
+                  ) : (
+                    <div className="flex flex-col items-center justify-center h-full opacity-30 text-center gap-4">
+                      <Terminal className="w-12 h-12 mb-2" />
+                      <p className="max-w-[200px]">Prompt engineering logs will appear here after generation.</p>
+                    </div>
+                  )}
+                </motion.div>
+              )}
+
+            </AnimatePresence>
           </div>
 
-          {completion && !isLoading && (
-            <div className="absolute bottom-6 right-6 flex gap-3 z-20">
-              <button
-                onClick={() => handleGenerate()}
-                className="px-4 py-2 rounded-xl border border-white/10 bg-[#111] hover:bg-[#222] transition-colors text-sm text-zinc-300 flex items-center gap-2 shadow-lg glass"
-              >
-                Regenerate
-              </button>
-            </div>
-          )}
+          {/* Bottom Banner */}
+          <div className="px-6 py-3 bg-blue-600/5 border-t border-white/5 flex items-center justify-between">
+             <div className="flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-blue-500 animate-ping" />
+                <span className="text-[10px] font-bold text-blue-400 uppercase tracking-widest">Live Prototype Engine</span>
+             </div>
+             <span className="text-[10px] text-zinc-600 font-mono">RENDER_STATUS: 200 OK</span>
+          </div>
         </div>
 
       </main>
